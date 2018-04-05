@@ -47,13 +47,12 @@ fi
 nomprojet=$1
 
 #test de l'existence du réperatoire $nomprojet
-
 if [ -e "$nomprojet" ]; then
 	echo "$nomprojet already existes"
 	exit 1
 fi
 
-#création du répertoire $nomprojet et les filchiers licence et makefile 
+#création du répertoire $nomprojet et les fichiers licence et makefile 
 
 mkdir "$nomprojet"
 echo " $nomprojet repertory  created successfully."
@@ -63,7 +62,7 @@ touch "$nomprojet/Makefile"
 echo "Makefile file  created successfully."
 
 
-#Ajout des options au projet (type du language de programmation,type de licence,initialisation d'un depot git : en rajoutant le shift l'ordre de ces options données par l'utilisateur n'est pas important)
+#Ajout des options au projet $nomprojet
 
 LIC="n"
 PROG="n"   #l'ajout de ces variables est nécessaire pour eviter la réexecution des
@@ -71,8 +70,10 @@ PROG="n"   #l'ajout de ces variables est nécessaire pour eviter la réexecution
 GIT="n"
 LANG=""
 
+shift #On décale les arguments de 1
 while [ "$1" != "" ] ; do
-	
+
+#choix du type du language de programmation et copier le code minimal associé 	
  case "$1" in
  -C)
 	if [ "$PROG" = "n" ]; then
@@ -118,6 +119,8 @@ while [ "$1" != "" ] ; do
 		LANG="tex"
                 
 	fi
+
+#choix du type du type de licence et copier le fichier associée
 	;;
  -GPL)
 	if [ "$LIC" = "n" ]; then
@@ -135,9 +138,12 @@ while [ "$1" != "" ] ; do
                
 	fi
 	;;
+
  -git)	
  		GIT="o"
 	;;
+
+#en cas ou l'option ajouté par l'utilisateur n'est pas reconnue
  *)
 	echo "Uknown arguments, please check the help : initdev --help"
 	exit 1
@@ -145,7 +151,7 @@ while [ "$1" != "" ] ; do
 
  esac
  
-shift
+shift #on décale la liste des options de 1
 done
 
 #comme l'ordre des options n'est pas important on doit savoir le language choisi par l'utilisateur pour créer le fichier .gitgonres approprié a ce language lors de l'initialisation du depot git
