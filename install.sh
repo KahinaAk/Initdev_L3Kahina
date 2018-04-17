@@ -60,7 +60,7 @@ if [ -e .bashrc ]; then
                  export INITDEV
 fi
 
-#sauvegarder la modification de la variable PATH dans le fichier .bashrc si l'utilisateur utilise zsh
+#sauvegarder la modification de la variable PATH dans le fichier .zhrc si l'utilisateur utilise zsh
 
 if [ -e .zsh ]; t
                  PATH="$PATH:/home/"$USER"/.initdev"hen
